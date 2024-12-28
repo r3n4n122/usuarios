@@ -1,6 +1,6 @@
 ####### api #######
 # Ignore bundler config.
-backend/.bundle
+# backend/.bundle
 
 # Ignore all logfiles and tempfiles.
 /log/*
