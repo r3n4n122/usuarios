@@ -3,9 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^6.3.0",
+    "bootstrap": "^5.3.3",
     "react": "^18.0.0",
+    "react-bootstrap": "^2.10.7",
     "react-dom": "^18.0.0",
-    "react-scripts": "^3.0.1"
+    "react-router-dom": "^6.4.0",
+    "react-scripts": "^5.0.1",
+    "styled-components": "^6.1.13"
   },
   "scripts": {
     "start": "PORT=4000 react-scripts start",
@@ -33,6 +40,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
     "cross-env": "^7.0.3"
   }
 }
