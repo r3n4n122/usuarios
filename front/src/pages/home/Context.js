@@ -17,5 +17,5 @@ export const UseApi = () => {
       .catch((error) => console.error('Erro na API:', error)); 
   }, []);
 
-  return users;
+  return users
 }

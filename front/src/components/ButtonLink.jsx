@@ -1,5 +1,4 @@
 import React from "react";
-import {Link } from "react-router-dom";
 import styled from 'styled-components'
 
 const Button = styled.div`
@@ -17,7 +16,6 @@ const Button = styled.div`
 function ButtonLink(props){
   return(
     <>
-      <Button><Link className="btn-nav" to={props.path}>{props.value}</Link></Button>
     </>
   )
 }
