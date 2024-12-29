@@ -7,8 +7,6 @@ module Api
     end
 
     def destroy
-      Rails.logger.info "Params recebidos: #{params.inspect}"
-
       user = User.find_by(id: params[:id])
       if user.destroy
         render json: { message: "Usuário excluído com sucesso" }, status: :ok
