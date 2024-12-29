@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export const UseApi = () => {
-  const [users, setPosts] = useState([])
+  const [users, setUsers] = useState([])
 
   useEffect(() => {
     fetch('http://localhost:3000/v1/users', {
@@ -12,11 +12,10 @@ export const UseApi = () => {
     }) 
       .then((response) => response.json())
       .then((data) => { 
-        setPosts(data)
+        setUsers(data)
        })
       .catch((error) => console.error('Erro na API:', error)); 
   }, []);
 
-  return users
+  return users;
 }
-

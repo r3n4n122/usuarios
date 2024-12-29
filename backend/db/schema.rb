@@ -17,11 +17,13 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_035254) do
   create_table "addresses", force: :cascade do |t|
     t.bigint "state_id"
     t.bigint "city_id"
+    t.bigint "user_id"
     t.string "zip_code"
     t.string "street"
     t.string "number"
     t.index ["city_id"], name: "index_addresses_on_city_id"
     t.index ["state_id"], name: "index_addresses_on_state_id"
+    t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
   create_table "cities", force: :cascade do |t|

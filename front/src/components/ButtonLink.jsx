@@ -3,8 +3,7 @@ import {Link } from "react-router-dom";
 import styled from 'styled-components'
 
 const Button = styled.div`
-  margin-left: 77%;
-  margin-top: 8%;
+  margin: 5% 0px 10px 15px;
 
   .btn-nav{
     background-color: #6495ED;

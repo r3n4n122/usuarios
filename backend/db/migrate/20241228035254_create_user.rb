@@ -12,6 +12,7 @@ class CreateUser < ActiveRecord::Migration[8.0]
     create_table :addresses do |t|
       t.references :state
       t.references :city
+      t.references :user
       t.string :zip_code
       t.string :street
       t.string :number
