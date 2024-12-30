@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { UseFetch } from './FetchData'
 import styled from "styled-components";
 

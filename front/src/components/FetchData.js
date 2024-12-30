@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useState, useEffect } from 'react';
   
-export const UseFetch = (url, method, headers={}) => {
+export const UseFetch = (url, method, headers) => {
   const [data, setState] = useState();
   
   useEffect(() => {
@@ -13,7 +13,7 @@ export const UseFetch = (url, method, headers={}) => {
       setState(data)
     })
     .catch((error) => console.error('Erro na API:', error)); 
-  }, [])
+  }, [url, method, headers])
 
   return data
 }

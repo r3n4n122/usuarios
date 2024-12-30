@@ -1,17 +1,13 @@
-import React from "react";
-import { Box, TextField } from "@mui/material";
-
+import React from 'react';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 export default function DateofBirthday({handleUserChange}){
 
   return (
-    <Box
-      component="form"
-      sx={{ '& > :not(style)': { m: 1, width: '100%'  } }}
-      noValidate
-      autoComplete="off"
-    >
-      <TextField id="outlined-basic"  placeholder="__/__/____" label="Data de nascimento" onChange={(e) => handleUserChange('date_of_birthday', e.target.value)} variant="outlined" />
-    </Box>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DatePicker />
+    </LocalizationProvider>
   );
 }
