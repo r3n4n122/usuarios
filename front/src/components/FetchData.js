@@ -13,7 +13,7 @@ export const UseFetch = (url, method, headers) => {
       setState(data)
     })
     .catch((error) => console.error('Erro na API:', error)); 
-  }, [url, method, headers])
+  },  [])
 
   return data
 }
