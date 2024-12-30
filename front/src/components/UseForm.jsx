@@ -61,32 +61,61 @@ function UseForm(props){
   
   }
 
-  const handleSubmit = async (url, user, addresses, method, alert) => {
+  const handleSubmit = async (url, user, addresses, method) => {
+    const isAddressValid = addresses.some(address =>
+      address.street.trim() &&
+      address.city.trim() &&
+      address.state.trim() &&
+      address.number.trim() &&
+      address.zip_code.trim()
+    );
+  
+    if (!isAddressValid) {
+      Swal.fire({
+        icon: 'error',
+        text: 'O usuário deve ter pelo menos 1 endereço completo.',
+        timer: 3000
+      });
+      return;
+    }
+  
     try {
       const response = await fetch(url, {
         method: method,
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({user, addresses})
+        body: JSON.stringify({ user, addresses }),
       });
   
       if (response.ok) {
         const data = await response.json();
         console.log("Success:", data);
+  
         Swal.fire({
           icon: 'success',
-          text: 'Usuário Criado com sucesso',
+          text: 'Usuário criado com sucesso!',
           timer: 3000
         });
+  
         window.location.href = 'http://localhost:4000/';
       } else {
-        alert("Erro ao cadastrar usuário.");
+        const error = await response.json();
+        Swal.fire({
+          icon: 'error',
+          text: error.message || 'Erro ao cadastrar usuário.',
+          timer: 3000
+        });
       }
     } catch (error) {
       console.error("Erro:", error);
+      Swal.fire({
+        icon: 'error',
+        text: 'Ocorreu um erro ao processar sua solicitação.',
+        timer: 3000
+      });
     }
-  };
+  };  
   
   return (
     <>
