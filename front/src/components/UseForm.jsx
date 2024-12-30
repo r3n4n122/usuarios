@@ -97,7 +97,6 @@ function UseForm(props){
           text: 'Usuário criado com sucesso!',
           timer: 3000
         });
-  
         window.location.href = 'http://localhost:4000/';
       } else {
         const error = await response.json();
@@ -124,8 +123,8 @@ function UseForm(props){
         <PersonalInformation>
           <Name handleUserChange={handleUserChange}/>
           <Cpf  handleValidate={handleValidate} handleUserChange={handleUserChange}/>
-          <DateofBirthday handleUserChange={handleUserChange}/>
           <Email handleValidate={handleValidate} handleUserChange={handleUserChange}/>
+          <DateofBirthday handleUserChange={handleUserChange}/>
         </PersonalInformation>
         
         {addresses.map((address, index) => (

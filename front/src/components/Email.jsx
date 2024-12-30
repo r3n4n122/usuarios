@@ -22,7 +22,7 @@ export default function Email({handleUserChange, handleValidate}){
   return (
     <Box
       component="form"
-      sx={{ '& > :not(style)': { m: 1, width: '100%'  } }}
+      sx={{ '& > :not(style)': {  width: '100%',  padding: 1  } }}
       noValidate
       autoComplete="off"
     >

@@ -8,6 +8,7 @@ module Api
 
     def create
       user = User.new(user_params)
+      user.date_of_birthday = params[:user][:date_of_birthday].to_date if params[:user][:date_of_birthday].present?
       create_addresses(user)
       if user.save
         render json: { message: "Usuário criado com sucesso" }, status: :ok

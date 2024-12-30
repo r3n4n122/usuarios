@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import TablePagination from "./TablePagination";
+import TablePagination from "../../components/TablePagination";
 import { UseApi } from "./Context"
 import styled from "styled-components";
 import {Link } from "react-router-dom";
