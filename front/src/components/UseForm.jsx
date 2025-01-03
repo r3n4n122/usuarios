@@ -25,7 +25,7 @@ const Title = styled.h1`
 `
 
 function UseForm(props){
-  const [addresses, setAddresses] = useState(props?.data?.addresses || [{ street: "", city: 0, state: 0, number: "", zip_code: ""}]);
+  const [addresses, setAddresses] = useState(props?.data?.addresses || [{ street: "", city_id: 0, state_id: 0, number: "", zip_code: ""}]);
   const [user, setUser] = useState(props?.data?.user || {name: "", email: "", cpf: "", date_of_birthday: ""})
   const [validate, setValidate] = useState({cpf: false, email: false})
   const [buttonDisabled, setButtonDisabled] = useState(true)
@@ -43,7 +43,7 @@ function UseForm(props){
   };
 
   const handleAddAddress = () => {
-    setAddresses([...addresses, { street: "", city: 0, state: 0, number: "", zip_code: ""}]);
+    setAddresses([...addresses, { street: "", city_id: 0, state_id: 0, number: "", zip_code: ""}]);
   };
 
   const handleRemoveAddress = (index) => {
@@ -64,8 +64,8 @@ function UseForm(props){
   const handleSubmit = async (url, user, addresses, method) => {
     const isAddressValid = addresses.some(address =>
       address?.street?.trim() &&
-      address?.city?.trim() &&
-      address?.state?.trim() &&
+      address?.city_id > 0 &&
+      address?.state_id > 0 &&
       address?.number?.trim() &&
       address?.zip_code?.trim()
     );
@@ -97,6 +97,7 @@ function UseForm(props){
           text: method === 'POST' ? 'Usuário criado com sucesso!'  : 'Usuário atualizado com sucesso!',
           timer: 3000
         });
+
         window.location.href = 'http://localhost:4000/';
       } else {
         Swal.fire({
@@ -116,7 +117,7 @@ function UseForm(props){
   };  
 
   useEffect(() => {
-    setAddresses(props?.data?.addresses || [{ street: "", city: "", state: "", number: "", zip_code: ""}])
+    setAddresses(props?.data?.addresses || [{ street: "", city_id: 0, state_id: 0, number: "", zip_code: ""}])
     setUser(props?.data?.user || {name: "", email: "", cpf: "", date_of_birthday: ""})
   }, [props?.data?.user, props?.data?.addresses])
   
@@ -134,7 +135,6 @@ function UseForm(props){
         {addresses.map((address, index) => (
           <Address
             key={index}
-            value={address}
             index={index}
             address={address}
             handleAddressChange={handleAddressChange}

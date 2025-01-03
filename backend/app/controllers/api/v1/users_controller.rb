@@ -59,8 +59,8 @@ module Api
       addresses.each do |a|
        address = user.addresses.build
         address.user_id = user.id
-        address.state_id = a["state"].to_i
-        address.city_id = a["city"].to_i
+        address.state_id = a["state_id"].to_i
+        address.city_id = a["city_id"].to_i
         address.street = a["street"]
         address.zip_code = a["zip_code"]
         address.number = a["number"]

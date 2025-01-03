@@ -22,7 +22,7 @@ export default function City({index, handleAddressChange}){
       <CityBox>
         <h3>Cidade</h3>
       
-        <select onChange={(e) => handleAddressChange(index, 'city', e.target.value)}>
+        <select onChange={(e) => handleAddressChange(index, 'city_id', e.target.value)}>
           <option key={index} value="">Selecione uma Cidade</option>
           {cities.map((city, index) => (
             <option key={index} value={city.id}>{city.name}</option>

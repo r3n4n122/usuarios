@@ -22,7 +22,7 @@ export default function State({index, handleAddressChange}){
       <StateBox> 
         <h3>Estado</h3>
       
-        <select onChange={(e) => handleAddressChange(index, 'state', e.target.value)}>
+        <select onChange={(e) => handleAddressChange(index, 'state_id', e.target.value)}>
           <option key={index} value="">Selecione um Estado</option>
           {states.map((state, index) => (
             <option key={index} value={state?.id}>{state.name}</option>

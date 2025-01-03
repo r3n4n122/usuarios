@@ -10,7 +10,7 @@ const StateCity = styled.div`
   justify-content: center;
 
 `
-export default function Address({ index, address, handleAddressChange, handleRemoveAddress, value}) {
+export default function Address({ index, address, handleAddressChange, handleRemoveAddress}) {
   return (
     <Box sx={{ mb: 2 }}>
       <h2>Endereço {index + 1}</h2>
@@ -19,7 +19,7 @@ export default function Address({ index, address, handleAddressChange, handleRem
         label="Rua"
         variant="outlined"
         fullWidth
-        value={value?.street || address.street}
+        value={address.street}
         onChange={(e) => handleAddressChange(index, "street", e.target.value)}
         sx={{ mb: 2 }}
       />
@@ -28,7 +28,7 @@ export default function Address({ index, address, handleAddressChange, handleRem
         label="CEP"
         variant="outlined"
         fullWidth
-        value={value?.zip_code || address.zip_code}
+        value={address.zip_code}
         onChange={(e) => handleAddressChange(index, "zip_code", e.target.value)}
         sx={{ mb: 2}}
       />
@@ -38,15 +38,16 @@ export default function Address({ index, address, handleAddressChange, handleRem
         label="Numero"
         variant="outlined"
         fullWidth
-        value={value?.number || address.number}
+        value={address.number}
         onChange={(e) => handleAddressChange(index, "number", e.target.value)}
         sx={{ mb: 2 }}
       />
 
       <StateCity>
-        <State label="Estado" value={address.state} index={index} handleAddressChange={handleAddressChange}/>
+        
+        <State label="Estado" value={address?.state_id} index={index} handleAddressChange={handleAddressChange}/>
 
-        <City label="Cidade" value={address.city} index={index} handleAddressChange={handleAddressChange} />
+        <City label="Cidade" value={address?.city_id} index={index} handleAddressChange={handleAddressChange} />
       </StateCity>
 
       <Button
