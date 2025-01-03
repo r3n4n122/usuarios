@@ -9,10 +9,17 @@ const DateStyle = styled.div`
 `
 export default function DateofBirthday({handleUserChange}){
 
+  const handleChange = (e) => {
+    if (e.$M === 0 ){
+      e.$M = 1
+    }
+
+    handleUserChange('date_of_birthday', `${e.$D}/${e.$M}/${e.$y}`)
+  }
   return (
     <DateStyle>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DatePicker format="D/M/YYYY" onChange={(e) => handleUserChange('date_of_birthday', `${e.$D}/${e.$M}/${e.$y}`)}/>
+        <DatePicker format='DD/MM/YYYY' onChange={(e) => handleChange(e)}/>
       </LocalizationProvider>
     </DateStyle>
   );

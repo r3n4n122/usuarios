@@ -1,10 +1,11 @@
-import React from "react";
+import React, { use } from "react";
 import { Box, TextField } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function Email({handleUserChange, handleValidate}){
+export default function Email({handleUserChange, handleValidate, value}){
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [email, setEmail] = useState(value || "");
 
   const checkEmail = (email) => {
     let pattern = /^[a-zA-Z0-9._:$!%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$/;
@@ -19,6 +20,17 @@ export default function Email({handleUserChange, handleValidate}){
     }
   }
 
+  useEffect(() => {
+    setEmail(value || "")
+    checkEmail(value)
+  }, [value])
+
+  const handleChange = (e) => {
+    handleUserChange('email', e.target.value)
+    setEmail(e.target.value)
+    checkEmail(email)
+  }
+
   return (
     <Box
       component="form"
@@ -26,7 +38,7 @@ export default function Email({handleUserChange, handleValidate}){
       noValidate
       autoComplete="off"
     >
-      <TextField id="outlined-basic" label="Email" onChange={(e) => checkEmail(e.target.value)} onBlur={(e) => handleUserChange('email', e.target.value)}variant="outlined" error={!isValidEmail}  helperText={!isValidEmail ? errorMessage : ""} />
+      <TextField id="outlined-basic" label="Email" value={email} onChange={(e) => handleChange(e)} variant="outlined" error={!isValidEmail}  helperText={!isValidEmail ? errorMessage : ""} />
     </Box>
   );
 }

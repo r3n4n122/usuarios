@@ -23,6 +23,7 @@ export default function City({index, handleAddressChange}){
         <h3>Cidade</h3>
       
         <select onChange={(e) => handleAddressChange(index, 'city', e.target.value)}>
+          <option key={index} value="">Selecione uma Cidade</option>
           {cities.map((city, index) => (
             <option key={index} value={city.id}>{city.name}</option>
           ))}    

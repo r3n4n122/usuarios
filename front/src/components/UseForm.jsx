@@ -5,7 +5,7 @@ import Name from "./Name";
 import Address from "./Address";
 import styled from "styled-components";
 import { Box, Button } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DateofBirthday from "./DateofBirthday";
 import Swal from 'sweetalert2';
 
@@ -25,16 +25,16 @@ const Title = styled.h1`
 `
 
 function UseForm(props){
-  const [addresses, setAddresses] = useState([{ street: "", city: "", state: "", number: "", zip_code: ""}]);
-  const [user, setUser] = useState({name: "", email: "", cpf: "", date_of_birthday: ""})
+  const [addresses, setAddresses] = useState(props?.data?.addresses || [{ street: "", city: 0, state: 0, number: "", zip_code: ""}]);
+  const [user, setUser] = useState(props?.data?.user || {name: "", email: "", cpf: "", date_of_birthday: ""})
   const [validate, setValidate] = useState({cpf: false, email: false})
   const [buttonDisabled, setButtonDisabled] = useState(true)
-   
+
   const handleUserChange = (field, value) => {
     const updateUser = user
     updateUser[field] = value 
     setUser(updateUser)
-  }
+  } 
 
   const handleAddressChange = (index, field, value) => {
     const updatedAddresses = [...addresses];
@@ -63,11 +63,11 @@ function UseForm(props){
 
   const handleSubmit = async (url, user, addresses, method) => {
     const isAddressValid = addresses.some(address =>
-      address.street.trim() &&
-      address.city.trim() &&
-      address.state.trim() &&
-      address.number.trim() &&
-      address.zip_code.trim()
+      address?.street?.trim() &&
+      address?.city?.trim() &&
+      address?.state?.trim() &&
+      address?.number?.trim() &&
+      address?.zip_code?.trim()
     );
   
     if (!isAddressValid) {
@@ -94,15 +94,14 @@ function UseForm(props){
   
         Swal.fire({
           icon: 'success',
-          text: 'Usuário criado com sucesso!',
+          text: method === 'POST' ? 'Usuário criado com sucesso!'  : 'Usuário atualizado com sucesso!',
           timer: 3000
         });
         window.location.href = 'http://localhost:4000/';
       } else {
-        const error = await response.json();
         Swal.fire({
           icon: 'error',
-          text: error.message || 'Erro ao cadastrar usuário.',
+          text: method === 'POST' ? 'Erro ao cadastrar usuário.': 'Erro ao atualizar usuário.',
           timer: 3000
         });
       }
@@ -115,21 +114,27 @@ function UseForm(props){
       });
     }
   };  
+
+  useEffect(() => {
+    setAddresses(props?.data?.addresses || [{ street: "", city: "", state: "", number: "", zip_code: ""}])
+    setUser(props?.data?.user || {name: "", email: "", cpf: "", date_of_birthday: ""})
+  }, [props?.data?.user, props?.data?.addresses])
   
   return (
     <>
       <Title>Cadastro De Usúarios</Title>
       <Box sx={{ p: 3 }}>
         <PersonalInformation>
-          <Name handleUserChange={handleUserChange}/>
-          <Cpf  handleValidate={handleValidate} handleUserChange={handleUserChange}/>
-          <Email handleValidate={handleValidate} handleUserChange={handleUserChange}/>
-          <DateofBirthday handleUserChange={handleUserChange}/>
+          <Name handleUserChange={handleUserChange} value={props.data?.user?.name} />
+          <Cpf  handleValidate={handleValidate} handleUserChange={handleUserChange} value={props.data?.user?.cpf}/>
+          <Email handleValidate={handleValidate} handleUserChange={handleUserChange} value={props.data?.user?.email}/>
+          <DateofBirthday handleUserChange={handleUserChange} />
         </PersonalInformation>
         
         {addresses.map((address, index) => (
           <Address
             key={index}
+            value={address}
             index={index}
             address={address}
             handleAddressChange={handleAddressChange}

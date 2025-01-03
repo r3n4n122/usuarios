@@ -1,4 +1,5 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { Box, TextField, Button } from "@mui/material";
 import State from "./State";
 import City from "./City"
@@ -9,8 +10,7 @@ const StateCity = styled.div`
   justify-content: center;
 
 `
-export default function Address({ index, address, handleAddressChange, handleRemoveAddress }) {
-
+export default function Address({ index, address, handleAddressChange, handleRemoveAddress, value}) {
   return (
     <Box sx={{ mb: 2 }}>
       <h2>Endereço {index + 1}</h2>
@@ -19,7 +19,7 @@ export default function Address({ index, address, handleAddressChange, handleRem
         label="Rua"
         variant="outlined"
         fullWidth
-        value={address.street}
+        value={value?.street || address.street}
         onChange={(e) => handleAddressChange(index, "street", e.target.value)}
         sx={{ mb: 2 }}
       />
@@ -28,7 +28,7 @@ export default function Address({ index, address, handleAddressChange, handleRem
         label="CEP"
         variant="outlined"
         fullWidth
-        value={address.zipecode}
+        value={value?.zip_code || address.zip_code}
         onChange={(e) => handleAddressChange(index, "zip_code", e.target.value)}
         sx={{ mb: 2}}
       />
@@ -38,7 +38,7 @@ export default function Address({ index, address, handleAddressChange, handleRem
         label="Numero"
         variant="outlined"
         fullWidth
-        value={address.number}
+        value={value?.number || address.number}
         onChange={(e) => handleAddressChange(index, "number", e.target.value)}
         sx={{ mb: 2 }}
       />

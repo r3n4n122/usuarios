@@ -1,12 +1,11 @@
 import React from "react";
 import { Box, TextField } from "@mui/material";
+import { useState, useEffect } from "react";
 
-import { useState } from "react";
-
-export default function Cpf({handleUserChange, handleValidate}){
+export default function Cpf({handleUserChange, handleValidate, value}){
   const [isValidCpf, setIsValidCpf] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
-  
+  const [errorMessage, setErrorMessage] = useState(value || "");
+  const [cpf, setCpf] = useState("");
   const checkCpf = (cpf) =>{
     let validCpf = /([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})/
  
@@ -21,6 +20,17 @@ export default function Cpf({handleUserChange, handleValidate}){
     }
   }
 
+  useEffect(() => {
+    setCpf(value || "")
+    checkCpf(value);
+  }, [value])
+
+  const handleChange = (e) => {
+    handleUserChange('cpf', e.target.value);
+    setCpf(e.target.value);
+    checkCpf(cpf);
+  }
+
   return (
     <Box
       component="form"
@@ -28,7 +38,7 @@ export default function Cpf({handleUserChange, handleValidate}){
       noValidate
       autoComplete="off"
     >
-      <TextField id="outlined-basic" onBlur={(e) => handleUserChange('cpf', e.target.value)} onChange={(e) => checkCpf(e.target.value)} placeholder="___.___.___-__" label="CPF" variant="outlined"  error={!isValidCpf}  helperText={!isValidCpf ? errorMessage : ""} />
+      <TextField id="outlined-basic" value={cpf} onChange={(e) => handleChange(e)} placeholder="___.___.___-__" label="CPF" variant="outlined"  error={!isValidCpf}  helperText={!isValidCpf ? errorMessage : ""} />
     </Box>
   );
 }

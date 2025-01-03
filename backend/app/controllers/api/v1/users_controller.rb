@@ -35,15 +35,32 @@ module Api
       end
     end
 
+    def edit
+      user = User.find(params[:id])
+      hash = user_hash(user)
+
+      render json: {user: hash, addresses: user.addresses} 
+    end
+
     private 
+
+    def user_hash(user)
+      {
+        id: user.id,
+        name: user.name,
+        cpf: user.cpf,
+        email: user.email,
+        date_of_birthday: user.date_of_birthday.strftime("%d/%m/%Y"),
+      }
+    end
 
     def create_addresses(user)
       addresses = params[:addresses]
       addresses.each do |a|
-        address = Address.build
+       address = user.addresses.build
+        address.user_id = user.id
         address.state_id = a["state"].to_i
         address.city_id = a["city"].to_i
-        address.user_id = user.id
         address.street = a["street"]
         address.zip_code = a["zip_code"]
         address.number = a["number"]
@@ -52,7 +69,7 @@ module Api
     end
 
     def user_params
-      params.require(:user).permit(:name, :cpf, :email, :date_of_birthday)
+      params.require(:user).permit(:name, :cpf, :email, :date_of_birthday, addresses_attributes: [:id, :state_id, :city_id, :street, :zip_code, :number])
     end
   end
 end
