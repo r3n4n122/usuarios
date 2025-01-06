@@ -89,21 +89,14 @@ function UseForm(props){
       });
   
       if (response.ok) {
-        const data = await response.json();
-        console.log("Success:", data);
-  
         Swal.fire({
           icon: 'success',
           text: method === 'POST' ? 'Usuário criado com sucesso!'  : 'Usuário atualizado com sucesso!',
-          timer: 3000
-        });
-
-        window.location.href = 'http://localhost:4000/';
+        }).then(() => window.location.href = '/');
       } else {
         Swal.fire({
           icon: 'error',
           text: method === 'POST' ? 'Erro ao cadastrar usuário.': 'Erro ao atualizar usuário.',
-          timer: 3000
         });
       }
     } catch (error) {
