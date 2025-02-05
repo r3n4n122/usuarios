@@ -22,4 +22,4 @@ O projeto consiste em criar usuarios, editar, listar e filtrar.
     state = State.new(abbreviation: "SP", name: "São Paulo").save
     city = City.new(name: "São Paulo").save 
   ```
-- acessar a porta ```http://localhost:4000```
+- Acessar a porta ```http://localhost:4000```
