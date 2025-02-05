@@ -12,7 +12,7 @@ Ferramentas utilizadas:
     React, NPM, Material UI.
 
 Passa a passo para rodar a aplicação:
-  . depois de clonar o projeto execute o comando "docker compose up --build" para que o docker crie as imagens necessarias e faça a instalação das ferramentas.
+  . depois de clonar o projeto execute o comando ```docker compose up --build``` para que o docker crie as imagens necessarias e faça a instalação das ferramentas.
 
 
   . Acesse o bash do backend com o comando "docker compose backend bash" e execute bin/rails db:create
