@@ -15,5 +15,7 @@ Passa a passo para rodar a aplicação:
   . depois de clonar o projeto execute o comando ```docker compose up --build``` para que o docker crie as imagens necessarias e faça a instalação das ferramentas.
 
 
-  . Acesse o bash do backend com o comando "docker compose backend bash" e execute bin/rails db:create
+  . Acesse o bash do backend com o comando ```docker compose backend bash``` e execute ```bin/rails db:create```
   quando subir o docker, o projeto vai rodar um bundle install para baixar as gems e npm install para atualizar o package.json
+
+acessar a porta ```http://localhost:4000```
