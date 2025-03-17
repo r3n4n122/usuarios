@@ -21,8 +21,9 @@ export default function Cpf({handleUserChange, handleValidate, value}){
   }
 
   useEffect(() => {
-    setCpf(value || "")
+    setCpf(value || "");
     checkCpf(value);
+
   }, [value])
 
   const handleChange = (e) => {

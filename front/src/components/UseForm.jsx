@@ -33,6 +33,7 @@ function UseForm(props){
   const handleUserChange = (field, value) => {
     const updateUser = user
     updateUser[field] = value 
+    
     setUser(updateUser)
   } 
 
@@ -55,6 +56,7 @@ function UseForm(props){
     const updateFields = validate
     updateFields[field] = value
     setValidate(updateFields)
+
     if (validate.cpf && validate.email){
       setButtonDisabled(false)
     }
@@ -87,16 +89,18 @@ function UseForm(props){
         },
         body: JSON.stringify({ user, addresses }),
       });
+
+      const responseData = await response.json();
   
       if (response.ok) {
         Swal.fire({
           icon: 'success',
-          text: method === 'POST' ? 'Usuário criado com sucesso!'  : 'Usuário atualizado com sucesso!',
+          text:  responseData.message,
         }).then(() => window.location.href = '/');
       } else {
         Swal.fire({
           icon: 'error',
-          text: method === 'POST' ? 'Erro ao cadastrar usuário.': 'Erro ao atualizar usuário.',
+          text: responseData.message,
         });
       }
     } catch (error) {

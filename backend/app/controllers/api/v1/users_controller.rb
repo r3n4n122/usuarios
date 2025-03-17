@@ -7,31 +7,30 @@ module Api
     end
 
     def create
-      user = User.new(user_params)
-      user.date_of_birthday = params[:user][:date_of_birthday].to_date if params[:user][:date_of_birthday].present?
-      create_addresses(user)
-      if user.save
-        render json: { message: "Usuário criado com sucesso" }, status: :ok
+      user = UserService.new(user_params, params[:addresses]).call
+
+      if user
+        render json: { message: "Usuário criado com sucesso" }, status: 200
       else
-        render json: { message: "Usúario não cadastrado"}, status: :not_found
+        render json: { message: "Usúario não foi cadastrado"}, status: 400
       end
     end
 
     def update
       user = User.find(params[:id])
       if user.update!(user_params)
-        render json: { message: "Usuário atualizado com sucesso" }, status: :ok
+        render json: { message: "Usuário atualizado com sucesso" }, status: 200
       else
-        render json: { message: "Não foi possivel atualizar" }, status: :not_found
+        render json: { message: "Não foi possivel atualizar" }, status: 400
       end
     end
 
     def destroy
       user = User.find_by(id: params[:id])
       if user.destroy
-        render json: { message: "Usuário excluído com sucesso" }, status: :ok
+        render json: { message: "Usuário excluído com sucesso" }, status: 200
       else 
-        render json: { error: "Não foi possivel excluir" }, status: :not_found
+        render json: { error: "Não foi possivel excluir" }, status: 400
       end
     end
 
@@ -54,19 +53,6 @@ module Api
       }
     end
 
-    def create_addresses(user)
-      addresses = params[:addresses]
-      addresses.each do |a|
-       address = user.addresses.build
-        address.user_id = user.id
-        address.state_id = a["state_id"].to_i
-        address.city_id = a["city_id"].to_i
-        address.street = a["street"]
-        address.zip_code = a["zip_code"]
-        address.number = a["number"]
-        address.save
-      end
-    end
 
     def user_params
       params.require(:user).permit(:name, :cpf, :email, :date_of_birthday, addresses_attributes: [:id, :state_id, :city_id, :street, :zip_code, :number])
