@@ -1,6 +1,7 @@
-import React from "react";
+import {React, useState, useEffect} from "react";
 import { UseFetch } from './FetchData'
 import styled from "styled-components";
+
 
 const StateBox = styled.div`
   padding-left: 20px;
@@ -13,17 +14,25 @@ const StateBox = styled.div`
   }
 `
 
-export default function State({index, handleAddressChange}){
+export default function State({index, value, handleAddressChange}){
+
+  const [state, setState] = useState(value || 0)
+
   const data = UseFetch('http://localhost:3000/v1/addresses/states', 'GET', {'Accept': 'application/json',
     'Content-Type': 'application/json'});
   const states = data?.collection || []
+  
+  useEffect(() => {
+    setState(value)
+  }, [value]); 
+
   return(
     <>
       <StateBox> 
         <h3>Estado</h3>
       
-        <select onChange={(e) => handleAddressChange(index, 'state_id', e.target.value)}>
-          <option key={index} value="">Selecione um Estado</option>
+        <select  value={value} onChange={(e) => handleAddressChange(index, 'state_id', e.target.value)}>
+          <option key={index} >Selecione um Estado</option>
           {states.map((state, index) => (
             <option key={index} value={state?.id}>{state.name}</option>
           ))}    

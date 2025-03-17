@@ -44,7 +44,7 @@ export default function Address({ index, address, handleAddressChange, handleRem
       />
 
       <StateCity>
-        
+        {console.log(address?.state_id)}
         <State label="Estado" value={address?.state_id} index={index} handleAddressChange={handleAddressChange}/>
 
         <City label="Cidade" value={address?.city_id} index={index} handleAddressChange={handleAddressChange} />
