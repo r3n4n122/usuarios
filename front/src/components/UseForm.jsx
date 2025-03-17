@@ -25,8 +25,8 @@ const Title = styled.h1`
 `
 
 function UseForm(props){
-  const [addresses, setAddresses] = useState(props?.data?.addresses || [{ street: "", city_id: 0, state_id: 0, number: "", zip_code: ""}]);
-  const [user, setUser] = useState(props?.data?.user || {name: "", email: "", cpf: "", date_of_birthday: ""})
+  const [addresses, setAddresses] = useState(props?.user?.addresses || [{ street: "", city_id: 0, state_id: 0, number: "", zip_code: ""}]);
+  const [user, setUser] = useState(props?.user || {name: "", email: "", cpf: "", date_of_birthday: ""})
   const [validate, setValidate] = useState({cpf: false, email: false})
   const [buttonDisabled, setButtonDisabled] = useState(true)
 
@@ -123,10 +123,10 @@ function UseForm(props){
       <Title>Cadastro De Usúarios</Title>
       <Box sx={{ p: 3 }}>
         <PersonalInformation>
-          <Name handleUserChange={handleUserChange} value={props.data?.user?.name} />
-          <Cpf  handleValidate={handleValidate} handleUserChange={handleUserChange} value={props.data?.user?.cpf}/>
-          <Email handleValidate={handleValidate} handleUserChange={handleUserChange} value={props.data?.user?.email}/>
-          <DateofBirthday handleUserChange={handleUserChange} />
+          <Name handleUserChange={handleUserChange} value={props.user?.name} />
+          <Cpf  handleValidate={handleValidate} handleUserChange={handleUserChange} value={props.user?.cpf}/>
+          <Email handleValidate={handleValidate} handleUserChange={handleUserChange} value={props.user?.email}/>
+          <DateofBirthday handleUserChange={handleUserChange}/>
         </PersonalInformation>
         
         {addresses.map((address, index) => (

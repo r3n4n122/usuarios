@@ -18,6 +18,7 @@ module Api
 
     def update
       user = User.find(params[:id])
+
       if user.update!(user_params)
         render json: { message: "Usuário atualizado com sucesso" }, status: 200
       else
@@ -27,6 +28,7 @@ module Api
 
     def destroy
       user = User.find_by(id: params[:id])
+      
       if user.destroy
         render json: { message: "Usuário excluído com sucesso" }, status: 200
       else 
@@ -36,22 +38,11 @@ module Api
 
     def edit
       user = User.find(params[:id])
-      hash = user_hash(user)
 
-      render json: {user: hash, addresses: user.addresses} 
+      render json: UserSerializer.new(user).serializable_hash
     end
 
     private 
-
-    def user_hash(user)
-      {
-        id: user.id,
-        name: user.name,
-        cpf: user.cpf,
-        email: user.email,
-        date_of_birthday: user.date_of_birthday.strftime("%d/%m/%Y"),
-      }
-    end
 
 
     def user_params
