@@ -39,7 +39,7 @@ export default function Cpf({handleUserChange, handleValidate, value}){
       noValidate
       autoComplete="off"
     >
-      <TextField id="outlined-basic" value={cpf} onChange={(e) => handleChange(e)} placeholder="___.___.___-__" label="CPF" variant="outlined"  error={!isValidCpf}  helperText={!isValidCpf ? errorMessage : ""} />
+      <TextField id="outlined-basic" value={cpf} onChange={(e) => handleChange(e)} placeholder="___.___.___-__" label="CPF" variant="outlined"  error={!isValidCpf}  helperText={!isValidCpf ? errorMessage : ""} required/>
     </Box>
   );
 }

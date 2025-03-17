@@ -38,7 +38,7 @@ export default function Email({handleUserChange, handleValidate, value}){
       noValidate
       autoComplete="off"
     >
-      <TextField id="outlined-basic" label="Email" value={email} onChange={(e) => handleChange(e)} variant="outlined" error={!isValidEmail}  helperText={!isValidEmail ? errorMessage : ""} />
+      <TextField id="outlined-basic" label="Email" value={email} onChange={(e) => handleChange(e)} variant="outlined" error={!isValidEmail}  helperText={!isValidEmail ? errorMessage : ""} required />
     </Box>
   );
 }
