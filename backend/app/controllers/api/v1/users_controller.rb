@@ -7,7 +7,7 @@ module Api
     end
 
     def create
-      user = UserService.new(user_params, params[:addresses]).call
+      user = UserService.new(user_params, params[:addresses]).create_user
 
       if user
         render json: { message: "Usuário criado com sucesso" }, status: 200

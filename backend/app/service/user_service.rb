@@ -5,19 +5,14 @@ class UserService
     @params_address = params_address
   end
 
-  def call
-    create_user
-  end
-  
-  private
-
   def create_user
     user = User.new(@params_user)
     user.date_of_birth =  @params_user[:date_of_birth].to_date unless  @params_user[:date_of_birth].nil?
     user.save
     build_address(user)
   end
-
+  
+  private
 
   def build_address(user)
     unless  @params_address.empty?
