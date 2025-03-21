@@ -25,8 +25,14 @@ const Title = styled.h1`
 `
 
 function UseForm(props){
-  const [addresses, setAddresses] = useState(props?.data?.addresses || [{ street: "", city_id: 0, state_id: 0, number: "", zip_code: ""}]);
-  const [user, setUser] = useState(props?.data?.user || {name: "", email: "", cpf: "", date_of_birthday: ""})
+
+  const [user, setUser] = useState(props?.data?.user || 
+    {name: "", 
+      email: "", 
+      cpf: "", 
+      date_of_birthday: "",
+      addresses_attributes: [{ street: "", city_id: 0, state_id: 0, number: "", zip_code: ""}]
+    })
   const [validate, setValidate] = useState({cpf: false, email: false})
   const [buttonDisabled, setButtonDisabled] = useState(true)
 
@@ -38,18 +44,27 @@ function UseForm(props){
   } 
 
   const handleAddressChange = (index, field, value) => {
-    const updatedAddresses = [...addresses];
+    const updatedAddresses = [...user.addresses_attributes];
     updatedAddresses[index][field] = value;
-    setAddresses(updatedAddresses);
+    setUser({
+      ...user,
+      addresses_attributes: updatedAddresses
+    });
   };
 
   const handleAddAddress = () => {
-    setAddresses([...addresses, { street: "", city_id: 0, state_id: 0, number: "", zip_code: ""}]);
+    setUser({
+      ...user,
+      addresses_attributes: [...(user.addresses_attributes || []), { street: "", city_id: 0, state_id: 0, number: "", zip_code: "" }]
+    });
   };
 
   const handleRemoveAddress = (index) => {
-    const updatedAddresses = addresses.filter((_, i) => i !== index);
-    setAddresses(updatedAddresses);
+    const updatedAddresses = user.addresses_attributes.filter((_, i) => i !== index);
+    setUser({
+      ...user,
+      addresses_attributes: updatedAddresses
+    });
   };
 
   const handleValidate = (field, value) => {
@@ -63,8 +78,8 @@ function UseForm(props){
   
   }
 
-  const handleSubmit = async (url, user, addresses, method) => {
-    const isAddressValid = addresses.some(address =>
+  const handleSubmit = async (url, user, method) => {
+    const isAddressValid = user.addresses_attributes.some(address =>
       address?.street?.trim() &&
       address?.city_id > 0 &&
       address?.state_id > 0 &&
@@ -87,7 +102,7 @@ function UseForm(props){
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user, addresses }),
+        body: JSON.stringify({ user }),
       });
 
       const responseData = await response.json();
@@ -114,9 +129,9 @@ function UseForm(props){
   };  
 
   useEffect(() => {
-    setAddresses(props?.data?.addresses || [{ street: "", city_id: 0, state_id: 0, number: "", zip_code: ""}])
-    setUser(props?.data?.user || {name: "", email: "", cpf: "", date_of_birthday: ""})
-  }, [props?.data?.user, props?.data?.addresses])
+    setUser(props?.data?.user || {name: "", email: "", cpf: "", date_of_birthday: "", addresses_attributes: [{ street: "", city_id: 0, state_id: 0, number: "", zip_code: ""}]})
+
+  }, [props?.data?.user])
   
   return (
     <>
@@ -129,7 +144,7 @@ function UseForm(props){
           <DateofBirthday handleUserChange={handleUserChange} />
         </PersonalInformation>
         
-        {addresses.map((address, index) => (
+        {user?.addresses_attributes?.map((address, index) => (
           <Address
             key={index}
             index={index}
@@ -151,7 +166,7 @@ function UseForm(props){
           disabled={buttonDisabled}
           variant="contained"
           color="success"
-          onClick={() => handleSubmit(props.url, user, addresses, props.method)}
+          onClick={() => handleSubmit(props.url, user, props.method)}
           sx={{ mt: 2, ml: 2 }}
         >
         {props.name}
