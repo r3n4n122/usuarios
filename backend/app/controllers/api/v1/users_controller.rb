@@ -7,7 +7,7 @@ module Api
     end
 
     def create
-      user = UserService.new(user_params, params[:addresses]).create_user
+      user = UserService.new(user_params).create_user
 
       if user
         render json: { message: "Usuário criado com sucesso" }, status: 200
@@ -52,7 +52,6 @@ module Api
         date_of_birthday: user.date_of_birthday.strftime("%d/%m/%Y"),
       }
     end
-
 
     def user_params
       params.require(:user).permit(:name, :cpf, :email, :date_of_birthday, addresses_attributes: [:id, :state_id, :city_id, :street, :zip_code, :number])
