@@ -5,7 +5,7 @@ class UserSerializer
 
   attribute :addresses do |user|
     user.addresses.map do |ad|
-      ad.slice(:state_id, :city_id, :street, :zip_code, :number)
+      {street: ad.street, zip_code: ad.zip_code, number: ad.number, city: ad.city.name, state: ad.state.name}
     end
   end
 end

@@ -36,9 +36,8 @@ module Api
 
     def edit
       user = User.find(params[:id])
-      hash = user_hash(user)
-
-      render json: {user: hash, addresses: user.addresses} 
+      
+      render json: UserSerializer.new(user).serializable_hash
     end
 
     private 
